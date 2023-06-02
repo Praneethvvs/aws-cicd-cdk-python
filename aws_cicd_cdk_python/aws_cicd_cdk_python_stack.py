@@ -28,27 +28,26 @@ class AwsCicdCdkPythonStack(Stack):
             connection_arn="arn:aws:codestar-connections:us-east-1:578893893191:connection/a427e126-3adf-4175-9f32-4ea752206575"
         )
 
-
-        #define pipeline
+        # define pipeline
         code_pipeline = codepipeline.Pipeline(
             self, "Pipeline",
             pipeline_name="aws-cicd-cdk-pipeline",
             cross_account_keys=False
         )
 
+        # define synth step
         synth_step = pipelines.ShellStep(
             id="Synth",
             install_commands=[
                 'pip install -r requirements.txt'
             ],
-            commands=['npm ci',
-                      'npm run build',
-                      'npx cdk synth'],
+            commands=[
+                'npx cdk synth'],
 
             input=git_input
         )
 
-        #create pipeline
+        # create pipeline
         pipeline = pipelines.CodePipeline(
             self, 'CodePipeline',
             self_mutation=True,

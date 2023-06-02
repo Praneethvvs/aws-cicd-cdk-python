@@ -3,11 +3,11 @@ import os
 
 import aws_cdk as cdk
 
-from aws_cicd_cdk_python.resources_stack import ResourceStack
+from aws_cicd_cdk_python.aws_cicd_cdk_python_stack import AwsCicdCdkPythonStack
 
 
 app = cdk.App()
-ResourceStack(app, "ResourceStack",
+AwsCicdCdkPythonStack(app, "AwsCiCdPythonStack",
     # If you don't specify 'env', this stack will be environment-agnostic.
     # Account/Region-dependent features and context lookups will not work,
     # but a single synthesized template can be deployed anywhere.
