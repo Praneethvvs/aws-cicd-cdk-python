@@ -4,7 +4,8 @@ from aws_cdk import (
     Stack,
     pipelines,
     aws_codepipeline as codepipeline,
-    Environment
+    Environment,
+    SecretValue
     # aws_sqs as sqs,
 )
 from constructs import Construct
@@ -22,8 +23,6 @@ class AwsCicdCdkPythonStack(Stack):
     def __init__(self, scope: Construct, construct_id: str, **kwargs) -> None:
         super().__init__(scope, construct_id, **kwargs)
 
-
-
         # define pipeline
         code_pipeline = codepipeline.Pipeline(
             self, "Pipeline",
@@ -40,7 +39,9 @@ class AwsCicdCdkPythonStack(Stack):
             commands=[
                 'npx cdk synth'],
 
-            input=pipelines.CodePipelineSource.git_hub('Praneethvvs/aws-cdk-cicd', 'git-PAT-authentication')
+            input=pipelines.CodePipelineSource.git_hub('Praneethvvs/aws-cdk-cicd-python', 'git-PAT-authentication',
+                                                       authentication=SecretValue.secrets_manager(
+                                                           "arn:aws:secretsmanager:us-east-1:578893893191:secret:github-token-aws-irxNiZ"))
 
         )
 
