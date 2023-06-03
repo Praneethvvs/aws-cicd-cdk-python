@@ -39,7 +39,7 @@ class AwsCicdCdkPythonStack(Stack):
             commands=[
                 'npx cdk synth'],
 
-            input=pipelines.CodePipelineSource.git_hub('Praneethvvs/aws-cdk-cicd-python', 'git-PAT-authentication',
+            input=pipelines.CodePipelineSource.git_hub('Praneethvvs/aws-cicd-cdk-python', 'git-PAT-authentication',
                                                        authentication=SecretValue.secrets_manager(
                                                            "arn:aws:secretsmanager:us-east-1:578893893191:secret:github-token-aws-irxNiZ"))
 
