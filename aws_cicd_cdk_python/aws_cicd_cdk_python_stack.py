@@ -22,11 +22,7 @@ class AwsCicdCdkPythonStack(Stack):
     def __init__(self, scope: Construct, construct_id: str, **kwargs) -> None:
         super().__init__(scope, construct_id, **kwargs)
 
-        git_input = pipelines.CodePipelineSource.connection(
-            repo_string="Praneethvvs/aws-cicd-cdk-python",
-            branch="main",
-            connection_arn="arn:aws:codestar-connections:us-east-1:578893893191:connection/a427e126-3adf-4175-9f32-4ea752206575"
-        )
+
 
         # define pipeline
         code_pipeline = codepipeline.Pipeline(
@@ -44,7 +40,8 @@ class AwsCicdCdkPythonStack(Stack):
             commands=[
                 'npx cdk synth'],
 
-            input=git_input
+            input=pipelines.CodePipelineSource.git_hub('Praneethvvs/aws-cdk-cicd', 'git-PAT-authentication')
+
         )
 
         # create pipeline
